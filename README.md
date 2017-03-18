@@ -26,3 +26,6 @@ Independent variables are processed as below:
 
 > python plot_exploratory_charts.py --ifile train.csv --invars vars.txt --target my_target -d \| --numeric_bins 20 --categorical_threshold 0.01 --output_csv bivariate_summary.csv
 
+### Sample Plot
+
+![Sample](graph1.png)

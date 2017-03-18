@@ -1,6 +1,6 @@
 # Target-Variable Bivariate Relationship
 
-This repository is used for visual exploration of target independennt variable relationship. For each variable, below visualisations are plotted:
+This repository is used for visual exploration of target independent variable relationship. For each variable, below visualisations are plotted:
 - The histogram of independent variable
 - Log odds of target vs independent variable
 

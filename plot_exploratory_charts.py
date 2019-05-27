@@ -25,7 +25,7 @@ def plot_final_graph(inputdf, target_rate,population,variable,title):
     ax2 = ax1.twinx()   
     ax2.plot(range(0,len(inputdf)), inputdf[target_rate],color='g',label='Log Odds')
     ax2.set_ylabel('Log Odds')
-    fig.savefig('Plots/%s.png'%variable)
+    fig.savefig('Plots/%s.png'%variable, bbox_inches = 'tight')
 
 def get_risk_table_categorical(inputdf, variable , target, variable_desc, cutoff = 1000):
     df1 = inputdf[[variable,target]]
@@ -44,7 +44,7 @@ def get_risk_table_categorical(inputdf, variable , target, variable_desc, cutoff
     df2.columns = ['Bads','Goods']
     df2['LOG ODDS'] = np.log(df2['Goods']/df2['Bads'])
     df2['Population Percentage'] = (df2['Goods']+df2['Bads'])/(df2['Goods']+df2['Bads']).sum()
-    df2.sort('LOG ODDS', inplace=True)
+    df2.sort_values('LOG ODDS', inplace=True)
     df2['Variable'] = variable
     
     plot_final_graph(df2,'LOG ODDS','Population Percentage',variable,variable_desc)
@@ -73,7 +73,7 @@ def get_risk_table_numeric(df,var,target,groups,title,special_values):
     
     bins = []
     begin_traverse = 0
-    percentiles = np.array([np.percentile(df1[var],p) for p in range(0,100)])
+    percentiles = np.around(np.array([np.percentile(df1[var],p) for p in range(0,100)]), decimals = 5)
     group_range = int(100/groups)
     
     while (begin_traverse <100):
@@ -95,7 +95,7 @@ def get_risk_table_numeric(df,var,target,groups,title,special_values):
         df6['Bin Mean'] = df4.index
         df6['LOG ODDS'] = np.log(df6['sum']/(df6['size']-df6['sum']))
         df6['Population Percentage'] = 1.0*df6['size']/len(df)
-        df6.sort('Bin Mean', inplace=True) 
+        df6.sort_values('Bin Mean', inplace=True) 
         df5 = pd.concat([df6,df5])
     plot_final_graph(df5,'LOG ODDS','Population Percentage',var,title)
     df5['Variable'] = var
